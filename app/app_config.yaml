@@ -1,0 +1,19 @@
+---
+text_splitter:
+  chunk_size: 500
+  chunk_overlap: 0
+embeddings:
+  model_path: ../assets/
+  n_ctx: 2048
+  n_gpu_layers: 24
+  n_threads: 8
+  n_batch: 1000
+llm:
+  model_path: ../assets
+  n_gpu_layers: 12
+  n_batch: 512
+  n_ctx: 2048
+rag_prompt:
+  template: >
+    [INST]<<SYS>> Something....
+    <</SYS>> \nQuestion: {question} \nContext: {context} \nAnswer: [/INST]
