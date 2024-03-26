@@ -1,6 +1,7 @@
-from erp.components import Ingress
+from ray import serve
 
 
-class Rag(Ingress):
+@serve.deployment
+class Rag:
     def __init__(self):
         pass
