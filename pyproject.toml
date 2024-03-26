@@ -3,12 +3,20 @@ requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "example-rag-pipeline"
+name = "erp"
 version = "0.1.0"
 dependencies = [
   "torch",
   "transformers",
+  "starlette",
+  "ray[serve]==2.10.0"
 ]
+
+[options]
+packages = [
+  "find"
+]
+
 requires-python = ">=3.11"
 authors = [
   {name = "Andrew Sommerlot", email = "andrewsommerlot@gmail.com"},
@@ -37,5 +45,5 @@ Repository = "https://github.com/drmerlot/example-rag-pipeline"
 "Bug Tracker" = "https://github.com/drmerlot/example-rag-pipeline"
 Changelog = "https://github.com/drmerlot/example-rag-pipeline/CHANGELOG.md"
 
-[project.entry-points."spam.magical"]
+[project.entry-points."erp.launch"]
 launch = "erp:launch"
