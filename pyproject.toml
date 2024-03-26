@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "example-rag-pipeline"
+version = "0.1.0"
+dependencies = [
+  "torch",
+  "transformers",
+]
+requires-python = ">=3.11"
+authors = [
+  {name = "Andrew Sommerlot", email = "andrewsommerlot@gmail.com"},
+]
+maintainers = [
+  {name = "Andrew Sommerlot", email = "andrewsommerlot@gmail.com"},
+]
+description = "Rag pipeline with api endpoint for example purposes"
+readme = "README.md"
+license = {file = "LICENSE.txt"}
+keywords = ["rag", "llm", "pipeline", "api", "example"]
+classifiers = [
+  "Development Status :: 0 - alpha",
+  "Programming Language :: Python"
+]
+
+[project.optional-dependencies]
+tests = [
+  "robot",
+]
+
+[project.urls]
+Homepage = "None"
+Documentation = "None"
+Repository = "https://github.com/drmerlot/example-rag-pipeline"
+"Bug Tracker" = "https://github.com/drmerlot/example-rag-pipeline"
+Changelog = "https://github.com/drmerlot/example-rag-pipeline/CHANGELOG.md"
+
+[project.entry-points."spam.magical"]
+launch = "erp:launch"
