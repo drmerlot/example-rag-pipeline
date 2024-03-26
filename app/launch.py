@@ -1,15 +1,16 @@
-from erp.deployment import ExampleService, Rag
-from erp.ConfigReader import read_config
+from erp.deployments import ExampleService, Rag, ChromaClient
+from erp.utils import ConfigReader as cr
 
 # Read in the app launch config
-app_config = read_config('./app_config.yaml')
+app_config = cr.read_config('./app_config.yaml')
 
 # deployments with defaults
 rag = Rag.bind()
+chroma_client = ChromaClient.bind()
 
 # handles dict:
 handles = {
-    'rag': rag,  # TODO: this is a placeholder
+    'chroma_client': chroma_client,
 }
 
 # the main show

@@ -1,5 +1,6 @@
 import uuid
 import chromadb
+from chromadb.utils import embedding_functions
 from ray.serve import deployment
 
 
@@ -12,10 +13,15 @@ class ChromaClient:
     Attributes:
         client (ChromaDBCleint): client connection to persistant chromadb
         colection (ChromaDBCollection): collection object for adding and querying
+        embeddings (embedding_functions): default chromaDB embeddings
     """
     def __init__(self):
         self.client = chromadb.HttpClient()
-        self.collection = self.client.create_collection("docs")
+        self.embeddings = embedding_functions.DefaultEmbeddingFunction()
+        self.collection = self.client.get_or_create_collection(
+            "docs",
+            embedding_function=self.embeddings
+        )
 
     def add(self, documents: list, metadatas: list = None):
         """add to a collection"""
