@@ -1,3 +1,4 @@
+import uuid
 import chromadb
 from ray.serve import deployment
 
@@ -16,19 +17,27 @@ class ChromaClient:
         self.client = chromadb.HttpClient()
         self.collection = self.client.create_collection("docs")
 
-    def add(self, documents: list, metadatas: list):
+    def add(self, documents: list, metadatas: list = None):
         """add to a collection"""
-        self.collection.add(
-            documents=["This is document1", "This is document2"], # we embed for you, or bring your own
-            metadatas=[{"source": "notion"}, {"source": "google-docs"}], # filter on arbitrary metadata!
-            ids=["doc1", "doc2"], # must be unique for each doc
-        )
+        # generate random UUIDs for each element in docs
+        ids = [uuid.uuid4() for x in documents]
+        if metadatas is not None:
+            self.collection.add(
+                documents=documents,  # ["This is document1", "This is document2"]
+                metadatas=metadatas,  # [{"source": "notion"}, {"source": "google-docs"}]
+                ids=ids  # ["doc1", "doc2"]
+            )
+        else:
+            self.collection.add(
+                documents=documents,  # ["This is document1", "This is document2"]
+                ids=ids  # ["doc1", "doc2"]
+            )
         return 0
 
     def query(self, query_texts: list, n_results: int = 2):
         """Query method on collection defined in init"""
         results = self.collection.query(
-            query_texts=query_texts, #["This is a query document"],
+            query_texts=query_texts,  # ["This is a query document"],
             n_results=n_results,
             # where={"metadata_field": "is_equal_to_this"}, # optional filter
             # where_document={"$contains":"search_string"}  # optional filter
