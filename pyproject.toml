@@ -2,6 +2,12 @@
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
+[tool.setuptools.packages.find]
+where = ["erp"]  # list of folders that contain the packages (["."] by default)
+include = ["*"]  # package names should match these glob patterns (["*"] by default)
+exclude = ["tests*"]  # exclude packages matching these glob patterns (empty by default)
+namespaces = false  # to disable scanning PEP 420 namespaces (true by default)
+
 [project]
 name = "erp"
 version = "0.1.0"
@@ -9,13 +15,14 @@ dependencies = [
   "torch",
   "transformers",
   "starlette",
-  "ray[serve]==2.10.0"
+  "ray[serve]==2.10.0",
+  "chromadb",
 ]
 
-[options]
-packages = [
-  "find"
-]
+# [options]
+# packages = [
+#   "find"
+# ]
 
 requires-python = ">=3.11"
 authors = [
@@ -45,5 +52,5 @@ Repository = "https://github.com/drmerlot/example-rag-pipeline"
 "Bug Tracker" = "https://github.com/drmerlot/example-rag-pipeline"
 Changelog = "https://github.com/drmerlot/example-rag-pipeline/CHANGELOG.md"
 
-[project.entry-points."erp.launch"]
-launch = "erp:launch"
+#[project.entry-points."erp.app.launch"]
+#launch = "erp:launch"
