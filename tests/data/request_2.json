@@ -1,0 +1,4 @@
+{
+    "query": "Does this patient have any allergies?",
+    "context": "The patient’s vital signs are stable and normal, and the patient is conscious but they communicating discomfort in right hip area. Indicators for recovery are favorable. They have indicated having a peanut allergy, and possibly tree nuts and eggs. Blood pressure: 90/60 mm/Hg to 120/80 mm/Hg Breathing: 12 – 18 breaths per minute Pulse: 60 – 100 beats per minute Temperature: 97.8 – 99.1 degrees Fahrenheit / average 98.6 degrees Fahrenheit"
+}
