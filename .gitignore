@@ -163,3 +163,6 @@ cython_debug/
 assets
 chromadb
 chroma_data
+
+# macos
+*DS_Store*

@@ -47,7 +47,13 @@ class Ingress:
             pass
 
         # check image exists
-        if request['option'] is None:
-            raise ValueError('No option specified')
+        if request['query'] is None:
+            raise ValueError('No question specified')
+        else:
+            pass
+
+        # check image exists
+        if request['context'] is None:
+            raise ValueError('No context specified')
         else:
             pass

@@ -1,17 +1,25 @@
-from erp.deployments import ExampleService, Rag, ChromaClient
+from erp.deployments import (
+    Rag,
+    EmbedAndSearch,
+    TextSplitter
+)
+
 from erp.utils import ConfigReader as cr
 
 # Read in the app launch config
 app_config = cr.read_config('./app_config.yaml')
 
 # deployments with defaults
-rag = Rag.bind()
-chroma_client = ChromaClient.bind()
+text_splitter = TextSplitter.bind()
+embed_and_search = EmbedAndSearch.bind()
 
 # handles dict:
 handles = {
-    'chroma_client': chroma_client,
+    'text_splitter': text_splitter,
+    'embed_and_search': embed_and_search
 }
 
+rag = Rag.bind(handles)
+
 # the main show
-response = ExampleService.bind(handles)
+response = Rag.bind(handles)

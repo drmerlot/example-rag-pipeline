@@ -24,6 +24,10 @@ dependencies = [
   "starlette",
   "ray[serve]==2.10.0",
   "chromadb",
+  "langchain",
+  "langchain-community",
+  "langchainhub",
+  "gpt4all"
 ]
 
 requires-python = ">=3.11"
