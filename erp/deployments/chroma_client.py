@@ -1,7 +1,10 @@
+import logging
 import uuid
 import chromadb
 from chromadb.utils import embedding_functions
 from ray.serve import deployment
+
+logger = logging.getLogger("ray.serve")
 
 
 @deployment
