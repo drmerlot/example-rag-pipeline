@@ -15,9 +15,5 @@
 |                     | Status Should Be | OK                  | ${resp}                      |              |
 |                     | ${resp}          | Set Variable        | ${resp.json()}               |              |
 |                     | Log To Console   | ${resp}             |                              |              |
-|                     | ${room}          | Get From Dictionary | ${resp}                      | room         |
-|                     | ${room_0}        | Get From List       | ${room}                      | 0            |
-|                     | ${uuid}          | Get From Dictionary | ${room_0}                    | uuid         |
-|                     | ${name}          | Get From Dictionary | ${room_0}                    | name         |
-|                     | Should Be Equal  | ${name}             | ${check_1_1}                 |              |
-|                     | Should Be Equal  | ${uuid}             | ${check_1_2}
+|                     | ${answer}        | Get From Dictionary | ${resp}                      | answer         |
+|                     | Should Contain   | ${answer}           | ${check_1_1}                 |              |
