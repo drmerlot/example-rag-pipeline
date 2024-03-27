@@ -25,9 +25,7 @@ dependencies = [
   "ray[serve]==2.10.0",
   "chromadb",
   "langchain==0.0.336",
-  #"langchain-community",
-  #"langchainhub",
-  #"gpt4all",
+  "gpt4all",
   "sentence-transformers"
 ]
 
