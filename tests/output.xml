@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.0 (Python 3.11.0 on darwin)" generated="2024-03-26T22:41:02.042644" rpa="false" schemaversion="5">
+<suite id="s1" name="Rag App Tests" source="/Users/andrew/repos/example-rag-pipeline/tests/rag_app_tests.robot">
+<test id="s1-t1" name="RagTestCase1" line="11">
+<kw name="Get File" owner="OperatingSystem">
+<msg time="2024-03-26T22:41:02.079307" level="INFO" html="true">Getting file '&lt;a href="file:///Users/andrew/repos/example-rag-pipeline/tests/data/request_1.json"&gt;/Users/andrew/repos/example-rag-pipeline/tests/data/request_1.json&lt;/a&gt;'.</msg>
+<msg time="2024-03-26T22:41:02.079382" level="INFO">${test_1} = {
+    "query": "What capitol city is meantioned in the text?",
+    "context": "Have you ever wondered if that cozy furniture piece that makes every house feel like a home is a couch or a sofa? Let’s t...</msg>
+<var>${test_1}</var>
+<arg>${test_1}</arg>
+<doc>Returns the contents of a specified file.</doc>
+<status status="PASS" start="2024-03-26T22:41:02.079218" elapsed="0.000175"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2024-03-26T22:41:02.079583" level="INFO">${body} = {'query': 'What capitol city is meantioned in the text?', 'context': 'Have you ever wondered if that cozy furniture piece that makes every house feel like a home is a couch or a sofa? Let’s try to ans...</msg>
+<var>${body}</var>
+<arg>json.loads(r'''${test_1}''')</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2024-03-26T22:41:02.079473" elapsed="0.000119"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2024-03-26T22:41:11.130009" level="INFO">POST Request : url=http://localhost:8001/rag 
+ path_url=/rag 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '1081', 'Content-Type': 'application/json'} 
+ body=b'{"query": "What capitol city is meantioned in the text?", "context": "Have you ever wondered if that cozy furniture piece that makes every house feel like a home is a couch or a sofa? Let\\u2019s try to answer that question. Historically, couches and sofas have been slightly different. The word couch is derived from the French word coucher which means lie down, and sofa comes from the Arabic word suffah which describes a cushioned wooden bench. Consequently, sofas are smaller, intended for sitting, and usually host up to two people, and couches are more spacey and can take a roll of a bed. However, both couches and sofas have evolved together, and today, the term is often used interchangeably. You can find types with many overlapping features. The best city is Austin Texas. That\\u2019s where things start to get complicated. It\\u2019s not just about a couch vs. sofa, it\\u2019s about dozens of different styles of each. Who said deciding on a sofa was easy? Keep on reading because shortly, we will start to explore this surprisingly diverse world of sofas and couches."}' 
+ </msg>
+<msg time="2024-03-26T22:41:11.130082" level="INFO">POST Response : url=http://localhost:8001/rag 
+ status=200, reason=OK 
+ headers={'date': 'Wed, 27 Mar 2024 03:41:01 GMT', 'server': 'uvicorn', 'content-type': 'application/json', 'x-request-id': '3fff7783-007c-415c-a148-bebd11473324', 'transfer-encoding': 'chunked'} 
+ body={"answer":"&lt;&lt;SYS&gt;&gt; Answer all questions yes or no ONLY no other text at all. &lt;&lt;SYS&gt;&gt; Answer all questions yes or no ONLY no other text at all. &lt;&lt;/SYS&gt;&gt; &lt;&lt;/SYS&gt;&gt;\n\\end{code}\n\nI\u2019m trying to parse through this to get only the context and answer, in the format: `Context: types with many overlapping features. The best city is Austin Texas. That\u2019s where things start to` . I also need to be able to search for any type of answer as a key for future use in my code.\n\nIs there anyway to do this?\n\nComment: What have you tried yourself? Please show your effort and we can help from that point.\n\nAnswer: Here is an example using Python 2.7+:\n\n\\begin{code}\nimport re\n\ns = \"\"\"Human: [INST]&lt;&lt;SYS&gt;&gt; Answer all questions yes or no ONLY no other text at all. &lt;&lt;/SYS&gt;&gt; \\nQuestion: What capitol city is meantioned in the text? \\nContext: types with many overlapping features. The best city is Austin Texas. That\u2019s where things start to"} 
+ </msg>
+<msg time="2024-03-26T22:41:11.130162" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>${app_url}</arg>
+<arg>json=${body}</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2024-03-26T22:41:02.079660" elapsed="9.050513"/>
+</kw>
+<kw name="Status Should Be" owner="RequestsLibrary">
+<arg>OK</arg>
+<arg>${resp}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" start="2024-03-26T22:41:11.130307" elapsed="0.000120"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2024-03-26T22:41:11.130763" level="INFO">${resp} = {'answer': '&lt;&lt;SYS&gt;&gt; Answer all questions yes or no ONLY no other text at all. &lt;&lt;SYS&gt;&gt; Answer all questions yes or no ONLY no other text at all. &lt;&lt;/SYS&gt;&gt; &lt;&lt;/SYS&gt;&gt;\n\\end{code}\n\nI’m trying to parse th...</msg>
+<var>${resp}</var>
+<arg>${resp.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2024-03-26T22:41:11.130501" elapsed="0.000274"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${resp}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-03-26T22:41:11.130846" elapsed="0.000075"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2024-03-26T22:41:11.131068" level="FAIL">Dictionary does not contain key 'room'.</msg>
+<var>${room}</var>
+<arg>${resp}</arg>
+<arg>room</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="FAIL" start="2024-03-26T22:41:11.130978" elapsed="0.000169">Dictionary does not contain key 'room'.</status>
+</kw>
+<kw name="Get From List" owner="Collections">
+<var>${room_0}</var>
+<arg>${room}</arg>
+<arg>0</arg>
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<status status="NOT RUN" start="2024-03-26T22:41:11.131231" elapsed="0.000012"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${uuid}</var>
+<arg>${room_0}</arg>
+<arg>uuid</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2024-03-26T22:41:11.131300" elapsed="0.000007"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${name}</var>
+<arg>${room_0}</arg>
+<arg>name</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2024-03-26T22:41:11.131369" elapsed="0.000008"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${name}</arg>
+<arg>${check_1_1}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="NOT RUN" start="2024-03-26T22:41:11.131432" elapsed="0.000006"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${uuid}</arg>
+<arg>${check_1_2}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="NOT RUN" start="2024-03-26T22:41:11.131550" elapsed="0.000007"/>
+</kw>
+<tag>Rag</tag>
+<status status="FAIL" start="2024-03-26T22:41:02.078848" elapsed="9.052784">Dictionary does not contain key 'room'.</status>
+</test>
+<status status="FAIL" start="2024-03-26T22:41:02.043476" elapsed="9.088319"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="0" fail="1" skip="0">Rag</stat>
+</tag>
+<suite>
+<stat pass="0" fail="1" skip="0" id="s1" name="Rag App Tests">Rag App Tests</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
