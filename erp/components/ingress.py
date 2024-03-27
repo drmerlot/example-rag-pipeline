@@ -38,7 +38,8 @@ class Ingress:
             request (dict): list of dics from request
 
         Raises:
-            TypeError: when input is not a dict
+            ValueError when dict has None value for key query
+            ValueError when dict has None value for key context
         """
         # check input type
         if type(request) is not dict:

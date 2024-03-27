@@ -1,7 +1,10 @@
+import logging
 import uuid
 import chromadb
 from chromadb.utils import embedding_functions
 from ray.serve import deployment
+
+logger = logging.getLogger("ray.serve")
 
 
 @deployment
@@ -12,7 +15,7 @@ class ChromaClient:
 
     Attributes:
         client (ChromaDBCleint): client connection to persistant chromadb
-        colection (ChromaDBCollection): collection object for adding and querying
+        colection (ChromaDBCollection): collection object for adding and query
         embeddings (embedding_functions): default chromaDB embeddings
     """
     def __init__(self):
@@ -29,14 +32,14 @@ class ChromaClient:
         ids = [uuid.uuid4() for x in documents]
         if metadatas is not None:
             self.collection.add(
-                documents=documents,  # ["This is document1", "This is document2"]
-                metadatas=metadatas,  # [{"source": "notion"}, {"source": "google-docs"}]
-                ids=ids  # ["doc1", "doc2"]
+                documents=documents,
+                metadatas=metadatas,
+                ids=ids
             )
         else:
             self.collection.add(
-                documents=documents,  # ["This is document1", "This is document2"]
-                ids=ids  # ["doc1", "doc2"]
+                documents=documents,
+                ids=ids
             )
         return 0
 
@@ -45,7 +48,5 @@ class ChromaClient:
         results = self.collection.query(
             query_texts=query_texts,  # ["This is a query document"],
             n_results=n_results,
-            # where={"metadata_field": "is_equal_to_this"}, # optional filter
-            # where_document={"$contains":"search_string"}  # optional filter
         )
         return results

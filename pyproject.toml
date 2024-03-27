@@ -24,10 +24,9 @@ dependencies = [
   "starlette",
   "ray[serve]==2.10.0",
   "chromadb",
-  "langchain",
-  "langchain-community",
-  "langchainhub",
-  "gpt4all"
+  "langchain==0.0.336",
+  "gpt4all",
+  "sentence-transformers"
 ]
 
 requires-python = ">=3.11"
@@ -47,8 +46,12 @@ classifiers = [
 ]
 
 [project.optional-dependencies]
-tests = [
-  "robot",
+dev = [
+  'robotframework',
+  'robotframework-requests',
+  'mkdocs',
+  'mkdocs-material',
+  'mkdocstrings',
 ]
 
 [project.urls]
@@ -58,5 +61,3 @@ Repository = "https://github.com/drmerlot/example-rag-pipeline"
 "Bug Tracker" = "https://github.com/drmerlot/example-rag-pipeline"
 Changelog = "https://github.com/drmerlot/example-rag-pipeline/CHANGELOG.md"
 
-#[project.entry-points."erp.app.launch"]
-#launch = "erp:launch"
