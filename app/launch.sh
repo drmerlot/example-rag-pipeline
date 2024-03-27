@@ -1,4 +1,4 @@
-# launch the nessesary services
+# Simple ray launch script
 
 # Launch the service locally
 export RAY_ROTATION_MAX_BYTES=102400

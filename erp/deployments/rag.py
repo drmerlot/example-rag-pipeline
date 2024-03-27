@@ -20,6 +20,24 @@ logger = logging.getLogger("ray.serve")
 
 @serve.deployment
 class Rag(Ingress):
+    """Main deployment for the Rag app.
+
+    The main deployement is where the compute graph is constructed,
+    in this case consisting of 3 deployments, TextSplitter,
+    EmbedAndSearch, and Rag. This deployment is also
+    the one exposed as an enpoint in the config.yaml file.
+
+    Rag inherits the Ingress class which includes simple request
+    reading and validation methods.
+
+    Attributres:
+        handles (dict): dict of deployment handles used to create the graph
+        config (str): path to Rag deployment config file
+        model_path (str): redundant to config but allows coonfigless launch
+        n_gpu_layers (str): redundant to config but allows coonfigless launch
+        n_batch (int): redundant to config but allows coonfigless launch
+        n_ctx (int): redundant to config but allows coonfigless launch
+    """
     def __init__(
         self,
         handles: dict,
@@ -51,7 +69,7 @@ class Rag(Ingress):
                 use_new_handle_api=True
         )
 
-        # get the model
+        # define the llama model from local file
         self.llm = LlamaCpp(
             model_path=self.model_path,
             n_gpu_layers=self.n_gpu_layers,
@@ -60,7 +78,7 @@ class Rag(Ingress):
             f16_kv=True,  # must be set to true
             verbose=False,
         )
-        # TODO: replace need to pull
+        # Get the prompt from a custom created prompt in the Rag config file
         self.rag_prompt = ChatPromptTemplate(
             input_variables=["question", "context"],
             messages=[
@@ -81,6 +99,14 @@ class Rag(Ingress):
         )
 
     async def __call__(self, request: Request) -> dict:
+        """Main method that runs the compute graph
+
+        Args:
+            request (starlette.Request): user request to system endpoint
+
+        Returns:
+            Response dict from rag process
+        """
         request_dict = await self.ingress(request)
         query = request_dict["query"]
         context = request_dict["context"]
@@ -102,6 +128,14 @@ class Rag(Ingress):
         return response
 
     def build_response(self, answer: str) -> dict:
+        """Converts rag response into simple dict to return to user as reponse
+
+        Args:
+            answer (str): Rag answer, just the text answer
+
+        Returns:
+            Dict simple pickle-able dict for response to user
+        """
         response = {}
         response['answer'] = answer
         return response

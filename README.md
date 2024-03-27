@@ -4,8 +4,8 @@ Example rag service for demo purposes
 ### Requires
 conda, pip, macos m series machine (this is made to run locally for the demo)
 
-### Get model file from
-https://huggingface.co/TheBloke/Llama-2-13B-GGUF/blob/main/llama-2-13b.Q4_0.gguf
+### Get model weights file from
+https://huggingface.co/TheBloke/Llama-2-70B-Chat-GGUF/blob/main/llama-2-70b-chat.Q4_K_M.gguf
 
 put the file in the home project dir under a new dir "assets"
 
