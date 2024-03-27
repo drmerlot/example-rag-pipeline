@@ -1,3 +1,6 @@
+"""This launch script launches all deployments and
+connects them via the app name sake deployment Rag"""
+
 from erp.deployments import (
     Rag,
     EmbedAndSearch,

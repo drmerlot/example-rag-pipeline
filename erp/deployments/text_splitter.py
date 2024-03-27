@@ -9,7 +9,16 @@ logger = logging.getLogger("ray.serve")
 
 @deployment
 class TextSplitter:
-    """Prepares text to be embedded"""
+    """Prepares text to be embedded
+
+    Splits context input as preprocessing
+    step to embedding.
+
+    Args:
+        config (str): config file to set constructor args
+        chunk_size (int): text split chunk size, default 25 if no config
+        chunk_overlap (int): overlap while splitting, default 5 if no config
+    """
     def __init__(
         self,
         config: str = None,
@@ -30,6 +39,13 @@ class TextSplitter:
         )
 
     def __call__(self, data: str) -> list:
-        """runs the text splitter"""
+        """runs the text splitter
+
+        Args:
+            data (str): text data to be split
+
+        Returns:
+            list of split docs
+        """
         all_splits = self.text_splitter.split_text(data)
         return all_splits
