@@ -6,8 +6,8 @@ http_options:
   port: 8001
 
 applications:
-- name: example-service
-  route_prefix: /example-service
+- name: rag
+  route_prefix: /rag
   import_path: launch:response
   runtime_env: {}
 
