@@ -166,3 +166,7 @@ chroma_data
 
 # macos
 *DS_Store*
+
+# robot tests
+tests/*.html
+tests/*.xml
