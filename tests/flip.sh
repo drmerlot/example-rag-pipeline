@@ -1,3 +1,5 @@
+#!/bin/bash
+
 pip install -e  '..[dev]'
 cd ../app
 ray stop

@@ -1,11 +1,12 @@
 [build-system]
-requires = ["setuptools"]
+requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
 where = [
   "erp",
-]  # list of folders that contain the packages (["."] by default)
+]
+# list of folders that contain the packages (["."] by default)
 include = ["*"]  # package names should match these glob patterns (["*"] by default)
 exclude = ["tests*"]  # exclude packages matching these glob patterns (empty by default)
 namespaces = false  # to disable scanning PEP 420 namespaces (true by default)
@@ -36,7 +37,7 @@ authors = [
 maintainers = [
   {name = "Andrew Sommerlot", email = "andrewsommerlot@gmail.com"},
 ]
-description = "Rag pipeline with api endpoint for example purposes"
+description = "Example LLM apps"
 readme = "README.md"
 license = {file = "LICENSE.txt"}
 keywords = ["rag", "llm", "pipeline", "api", "example"]
